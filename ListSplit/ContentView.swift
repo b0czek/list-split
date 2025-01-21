@@ -7,18 +7,25 @@
 
 import SwiftUI
 
+
 struct ContentView: View {
+    @State var loggedIn = false
+    @StateObject var loggedInUser = LoggedUser()
+    
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        if loggedIn {
+            ListsView()
+                .environmentObject(loggedInUser)
         }
-        .padding()
+        else {
+            LoginView(loggedIn: $loggedIn)
+                .environmentObject(loggedInUser)
+        }
+            
+
     }
 }
-
 #Preview {
     ContentView()
 }
